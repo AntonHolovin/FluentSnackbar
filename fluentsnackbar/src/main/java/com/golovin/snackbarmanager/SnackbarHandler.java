@@ -10,11 +10,11 @@ class SnackbarHandler extends Handler {
     static final int MESSAGE_DISMISSED = 0;
     static final int MESSAGE_NEW = 1;
 
-    private Queue<SnackbarMessage> mQueue = new LinkedList<>();
+    private Queue<FluentSnackbar.Builder> mQueue = new LinkedList<>();
 
-    private WeakReference<SnackbarManager> mSnackbarManager;
+    private WeakReference<FluentSnackbar> mSnackbarManager;
 
-    SnackbarHandler(SnackbarManager manager) {
+    SnackbarHandler(FluentSnackbar manager) {
         mSnackbarManager = new WeakReference<>(manager);
     }
 
@@ -33,8 +33,8 @@ class SnackbarHandler extends Handler {
     }
 
     private void onNewMessage(Message msg) {
-        SnackbarMessage shownMessage = mQueue.peek();
-        SnackbarMessage newMessage = (SnackbarMessage) msg.obj;
+        FluentSnackbar.Builder shownMessage = mQueue.peek();
+        FluentSnackbar.Builder newMessage = (FluentSnackbar.Builder) msg.obj;
 
         if (shownMessage == null || !shownMessage.isImportant()) {
             mQueue.poll();
@@ -56,10 +56,10 @@ class SnackbarHandler extends Handler {
         }
     }
 
-    private void show(SnackbarMessage message) {
-        SnackbarManager manager = mSnackbarManager.get();
+    private void show(FluentSnackbar.Builder message) {
+        FluentSnackbar manager = mSnackbarManager.get();
         if (manager != null) {
-            manager.showSnackbar(message.getText(), message.getOptions());
+            manager.showSnackbar(message);
         }
     }
 
