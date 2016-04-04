@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 .backgroundColorRes(R.color.purple_500) // default is #323232
                 .textColorRes(R.color.blue_grey_500) // default is Color.WHITE
                 .duration(Snackbar.LENGTH_SHORT) // default is Snackbar.LENGTH_LONG
+                .actionText("Action text") // default is "Action"
                 .actionTextColorRes(R.color.colorAccent)
                 .important()
                 .action(new View.OnClickListener() {
