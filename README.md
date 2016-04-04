@@ -1,5 +1,5 @@
-# FluentManager
-Tiny wrapper that lets you create and show snackbars in a fluent manner. Contains queue feature.
+# FluentSnackbar
+Tiny library that uses Android Design Support Library and lets you create and show snackbars in a fluent manner. Contains queue feature.
 
 ![Screenshot](art/screenshot.png)  
 
