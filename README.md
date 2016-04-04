@@ -34,4 +34,4 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 
-If you want to show several messages following one by one you can use `important()` method. Such snackbars cannot be dismissed by another snackbars and will be shown throughout their duration. 
+If you want to show several messages following one by one you can use `important()` method. Such snackbars cannot be dismissed by another snackbars and will be shown throughout their duration. So you can create a queue of snackbars. Just call `important()` and then `show()` for each `FluentSnackbar.Builder`. 
