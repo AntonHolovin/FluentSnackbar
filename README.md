@@ -1,6 +1,8 @@
 # FluentManager
 Tiny wrapper that lets you create and show snackbars in a fluent manner. Contains queue feature.
 
+![Screenshot](art/screenshot.png)  
+
 ### All you need to know
 
 ```java

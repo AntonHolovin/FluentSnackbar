@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mFluentSnackbar.create("Styled")
                         .backgroundColorRes(R.color.purple_500)
-                        .textColorRes(R.color.blue_grey_500)
                         .duration(Snackbar.LENGTH_SHORT)
                         .important()
                         .action(new View.OnClickListener() {
