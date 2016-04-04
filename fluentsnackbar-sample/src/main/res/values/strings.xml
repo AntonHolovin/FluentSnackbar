@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FluentSnackbar sample</string>
+    <string name="action_text">Click</string>
+</resources>
