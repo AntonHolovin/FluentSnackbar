@@ -117,16 +117,6 @@ public class FluentSnackbar {
             mActionText = mActivity.getString(R.string.default_action);
         }
 
-        public Builder textRes(@StringRes int text) {
-            mText = mActivity.getString(text);
-            return this;
-        }
-
-        public Builder text(String text) {
-            mText = text;
-            return this;
-        }
-
         public Builder maxLines(int maxLines) {
             mMaxLines = maxLines;
             return this;
