@@ -5,7 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
-import com.golovin.snackbarmanager.FluentSnackbar;
+import com.golovin.fluentstackbar.FluentSnackbar;
 
 @SuppressWarnings("ConstantConditions")
 public class MainActivity extends AppCompatActivity {
