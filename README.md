@@ -1,8 +1,7 @@
 # FluentSnackbar
 [![Release](https://jitpack.io/v/antonygolovin/fluentsnackbar.svg)](https://jitpack.io/#antonygolovin/fluentsnackbar)
 
-Tiny library that uses Android Design Support Library and lets you create and show snackbars in a fluent manner. Contains queue feature. 
-You can also download sample apk from https://github.com/AntonyGolovin/FluentSnackbar/tree/master/fluentsnackbar-sample/sample.apk
+Tiny library that uses Android Design Support Library and lets you create and show snackbars in a fluent manner. Contains queue feature. You can also download sample [apk](https://github.com/AntonyGolovin/FluentSnackbar/tree/master/fluentsnackbar-sample/sample.apk).
 
 ![Screenshot](art/screenshot.png)  
 
