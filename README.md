@@ -40,3 +40,23 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 If you want to show several messages following one by one you can use `important()` method. Such snackbars cannot be dismissed by another snackbars and will be shown throughout their duration. So you can create a queue of snackbars. Just call `important()` and then `show()` for each `FluentSnackbar.Builder`. 
+
+### Gradle dependency 
+
+Add this in your root `build.gradle`:
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+and then add this in your module `build.gradle`:
+
+```gradle
+dependencies {
+    compile 'com.github.antonygolovin:fluentsnackbar:0.1'
+}
+```
