@@ -1,4 +1,4 @@
-package com.golovin.snackbarmanager;
+package com.golovin.fluentstackbar;
 
 import android.os.Handler;
 import android.os.Message;
