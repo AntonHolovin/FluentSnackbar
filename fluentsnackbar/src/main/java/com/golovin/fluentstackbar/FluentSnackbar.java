@@ -56,7 +56,7 @@ public class FluentSnackbar {
             snackbar.setAction(builder.getActionText(), builder.getActionListener());
 
             if (builder.hasActionTextColor()) {
-                snackbar.setActionTextColor(ContextCompat.getColor(mActivity, builder.getActionTextColor()));
+                snackbar.setActionTextColor(builder.getActionTextColor());
             } else if (builder.hasActionTextColors()) {
                 snackbar.setActionTextColor(builder.getActionColors());
             }
