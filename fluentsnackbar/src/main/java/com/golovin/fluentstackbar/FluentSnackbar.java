@@ -1,5 +1,6 @@
 package com.golovin.fluentstackbar;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Looper;
@@ -15,11 +16,11 @@ import android.widget.TextView;
 import com.golovin.snackbarmanager.R;
 
 public class FluentSnackbar {
-    private final AppCompatActivity mActivity;
+    private final Activity mActivity;
 
     private final SnackbarHandler mSnackbarHandler;
 
-    public FluentSnackbar(AppCompatActivity activity) {
+    public FluentSnackbar(Activity activity) {
         verifyMainThread();
 
         mActivity = activity;
