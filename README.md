@@ -1,5 +1,6 @@
 # FluentSnackbar
 [![Release](https://jitpack.io/v/antonygolovin/fluentsnackbar.svg)](https://jitpack.io/#antonygolovin/fluentsnackbar)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FluentSnackbar-green.svg?style=true)](https://android-arsenal.com/details/1/3757)
 
 Tiny library that uses Android Design Support Library and lets you create and show snackbars in a fluent manner. Contains queue feature. You can also download sample [apk](https://github.com/AntonyGolovin/FluentSnackbar/tree/master/fluentsnackbar-sample/sample.apk).
 
@@ -57,6 +58,6 @@ and then add this in your module `build.gradle`:
 
 ```gradle
 dependencies {
-    compile 'com.github.antonygolovin:fluentsnackbar:0.1'
+    compile 'com.github.antonygolovin:fluentsnackbar:0.1.2'
 }
 ```
