@@ -58,6 +58,6 @@ and then add this in your module `build.gradle`:
 
 ```gradle
 dependencies {
-    compile 'com.github.antonygolovin:fluentsnackbar:0.1.2'
+    compile 'com.github.antonygolovin:fluentsnackbar:0.1.3'
 }
 ```
