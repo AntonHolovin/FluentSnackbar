@@ -2,6 +2,6 @@
 <resources>
     <color name="red_500">#F44336</color>
     <color name="green_500">#4CAF50</color>
-    <color name="yellow_500">#FFEB3B</color>
+    <color name="yellow_700">#FBC02D</color>
     <color name="default_background">#323232</color>
 </resources>

@@ -2,6 +2,7 @@ package com.golovin.fluentstackbar;
 
 import android.os.Handler;
 import android.os.Message;
+
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -23,7 +24,7 @@ class SnackbarHandler extends Handler {
         switch (msg.what) {
             case MESSAGE_DISMISSED:
                 mQueue.poll();
-                iterateAndShow();
+                showNext();
                 break;
 
             case MESSAGE_NEW:
@@ -40,16 +41,14 @@ class SnackbarHandler extends Handler {
             mQueue.poll();
             mQueue.add(newMessage);
 
-            iterateAndShow();
+            showNext();
         } else {
             mQueue.add(newMessage);
         }
     }
 
-    private void iterateAndShow() {
-        while (!mQueue.isEmpty() && !(hasLastAndNotImportant() || mQueue.peek().isImportant())) {
-            mQueue.poll();
-        }
+    private void showNext() {
+        removeLowPriorityMessages();
 
         if (!mQueue.isEmpty()) {
             show(mQueue.peek());
@@ -63,7 +62,20 @@ class SnackbarHandler extends Handler {
         }
     }
 
-    private boolean hasLastAndNotImportant() {
-        return !mQueue.peek().isImportant() && mQueue.size() == 1;
+    private void removeLowPriorityMessages() {
+        while (hasItemsToRemove()) {
+            mQueue.poll();
+        }
+    }
+
+    private boolean hasItemsToRemove() {
+        if (mQueue.isEmpty()) {
+            return false;
+        }
+
+        boolean hasImportant = mQueue.peek().isImportant();
+        boolean hasSingleNonImportant = mQueue.size() == 1 && !mQueue.peek().isImportant();
+
+        return !(hasImportant || hasSingleNonImportant);
     }
 }

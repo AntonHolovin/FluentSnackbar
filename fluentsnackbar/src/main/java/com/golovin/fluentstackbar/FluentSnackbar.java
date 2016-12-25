@@ -3,16 +3,15 @@ package com.golovin.fluentstackbar;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import com.golovin.fluentstackbar.helpers.ThreadHelper;
 import com.golovin.snackbarmanager.R;
 
 public class FluentSnackbar {
@@ -20,19 +19,15 @@ public class FluentSnackbar {
 
     private final SnackbarHandler mSnackbarHandler;
 
-    public FluentSnackbar(Activity activity) {
-        verifyMainThread();
+    public static FluentSnackbar create(Activity activity) {
+        ThreadHelper.verifyMainThread();
 
-        mActivity = activity;
-
-        mSnackbarHandler = new SnackbarHandler(this);
+        return new FluentSnackbar(activity);
     }
 
-    private void verifyMainThread() {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            throw new IllegalStateException(
-                    "Expected to be called on the main thread but was " + Thread.currentThread().getName());
-        }
+    private FluentSnackbar(Activity activity) {
+        mActivity = activity;
+        mSnackbarHandler = new SnackbarHandler(this);
     }
 
     private void putToMessageQueue(Builder builder) {
@@ -42,7 +37,6 @@ public class FluentSnackbar {
     }
 
     void showSnackbar(Builder builder) {
-        //noinspection ConstantConditions,ResourceType
         Snackbar snackbar = Snackbar.make(mActivity.findViewById(android.R.id.content), builder.getText(),
                 builder.getDuration());
 
@@ -64,7 +58,7 @@ public class FluentSnackbar {
         }
 
         if (builder.isImportant()) {
-            snackbar.setCallback(new Snackbar.Callback() {
+            snackbar.addCallback(new Snackbar.Callback() {
                 @Override
                 public void onDismissed(Snackbar snackbar, int event) {
                     Message message = mSnackbarHandler.obtainMessage(SnackbarHandler.MESSAGE_DISMISSED);
@@ -97,7 +91,6 @@ public class FluentSnackbar {
 
         private boolean mIsImportant;
 
-        @Snackbar.Duration
         private int mDuration;
 
         private CharSequence mActionText;
@@ -145,7 +138,7 @@ public class FluentSnackbar {
         }
 
         public Builder warningBackgroundColor() {
-            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.yellow_500);
+            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.yellow_700);
             return this;
         }
 
@@ -173,7 +166,7 @@ public class FluentSnackbar {
             return this;
         }
 
-        public Builder duration(@Snackbar.Duration int duration) {
+        public Builder duration(int duration) {
             mDuration = duration;
             return this;
         }
@@ -220,7 +213,6 @@ public class FluentSnackbar {
             return mMaxLines;
         }
 
-        @Snackbar.Duration
         int getDuration() {
             return mDuration;
         }
