@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFluentSnackbar = FluentSnackbar.create(this);
+        mFluentSnackbar = FluentSnackbar.create(this); // you can also use any View instead of Activity
 
         mFluentSnackbar.create("Text")
                 .maxLines(2) // default is 1 line
