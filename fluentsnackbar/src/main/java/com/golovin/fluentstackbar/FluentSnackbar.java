@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.golovin.fluentstackbar.helpers.ThreadHelper;
 import com.golovin.snackbarmanager.R;
 
-public class FluentSnackbar {
+public final class FluentSnackbar {
     private final Activity mActivity;
 
     private final SnackbarHandler mSnackbarHandler;

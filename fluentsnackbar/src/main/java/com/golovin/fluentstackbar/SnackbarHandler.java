@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class SnackbarHandler extends Handler {
+final class SnackbarHandler extends Handler {
     static final int MESSAGE_DISMISSED = 0;
     static final int MESSAGE_NEW = 1;
 
