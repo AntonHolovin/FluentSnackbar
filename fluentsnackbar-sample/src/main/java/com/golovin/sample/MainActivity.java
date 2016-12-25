@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFluentSnackbar = new FluentSnackbar(this);
+        mFluentSnackbar = FluentSnackbar.create(this);
 
         findViewById(R.id.button_show_success).setOnClickListener(new View.OnClickListener() {
             @Override

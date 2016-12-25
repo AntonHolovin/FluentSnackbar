@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFluentSnackbar = new FluentSnackbar(this);
+        mFluentSnackbar = FluentSnackbar.create(this); // you can also use any View instead of Activity
 
         mFluentSnackbar.create("Text")
                 .maxLines(2) // default is 1 line
@@ -58,6 +58,6 @@ and then add this in your module `build.gradle`:
 
 ```gradle
 dependencies {
-    compile 'com.github.antonygolovin:fluentsnackbar:0.1.3'
+    compile 'com.github.antonygolovin:fluentsnackbar:1.0.0'
 }
 ```

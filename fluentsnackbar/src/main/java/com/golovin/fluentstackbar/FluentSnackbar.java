@@ -3,36 +3,37 @@ package com.golovin.fluentstackbar;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import com.golovin.fluentstackbar.helpers.ThreadHelper;
 import com.golovin.snackbarmanager.R;
 
-public class FluentSnackbar {
-    private final Activity mActivity;
+public final class FluentSnackbar {
+    private final View mView;
 
     private final SnackbarHandler mSnackbarHandler;
 
-    public FluentSnackbar(Activity activity) {
-        verifyMainThread();
+    public static FluentSnackbar create(Activity activity) {
+        ThreadHelper.verifyMainThread();
 
-        mActivity = activity;
-
-        mSnackbarHandler = new SnackbarHandler(this);
+        return new FluentSnackbar(activity.findViewById(android.R.id.content));
     }
 
-    private void verifyMainThread() {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            throw new IllegalStateException(
-                    "Expected to be called on the main thread but was " + Thread.currentThread().getName());
-        }
+    public static FluentSnackbar create(View view) {
+        ThreadHelper.verifyMainThread();
+
+        return new FluentSnackbar(view);
+    }
+
+    private FluentSnackbar(View view) {
+        mView = view;
+        mSnackbarHandler = new SnackbarHandler(this);
     }
 
     private void putToMessageQueue(Builder builder) {
@@ -42,9 +43,7 @@ public class FluentSnackbar {
     }
 
     void showSnackbar(Builder builder) {
-        //noinspection ConstantConditions,ResourceType
-        Snackbar snackbar = Snackbar.make(mActivity.findViewById(android.R.id.content), builder.getText(),
-                builder.getDuration());
+        Snackbar snackbar = Snackbar.make(mView, builder.getText(), builder.getDuration());
 
         View view = snackbar.getView();
         view.setBackgroundColor(builder.getBackgroundColor());
@@ -64,7 +63,7 @@ public class FluentSnackbar {
         }
 
         if (builder.isImportant()) {
-            snackbar.setCallback(new Snackbar.Callback() {
+            snackbar.addCallback(new Snackbar.Callback() {
                 @Override
                 public void onDismissed(Snackbar snackbar, int event) {
                     Message message = mSnackbarHandler.obtainMessage(SnackbarHandler.MESSAGE_DISMISSED);
@@ -77,7 +76,7 @@ public class FluentSnackbar {
     }
 
     public Builder create(@StringRes int text) {
-        return create(mActivity.getString(text));
+        return create(mView.getContext().getString(text));
     }
 
     public Builder create(String text) {
@@ -97,7 +96,6 @@ public class FluentSnackbar {
 
         private boolean mIsImportant;
 
-        @Snackbar.Duration
         private int mDuration;
 
         private CharSequence mActionText;
@@ -113,10 +111,10 @@ public class FluentSnackbar {
             mText = text;
             mMaxLines = 1;
             mTextColor = Color.WHITE;
-            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.default_background);
+            mBackgroundColor = ContextCompat.getColor(mView.getContext(), R.color.default_background);
             mIsImportant = false;
             mDuration = Snackbar.LENGTH_LONG;
-            mActionText = mActivity.getString(R.string.default_action);
+            mActionText = mView.getContext().getString(R.string.default_action);
         }
 
         public Builder maxLines(int maxLines) {
@@ -125,7 +123,7 @@ public class FluentSnackbar {
         }
 
         public Builder textColorRes(@ColorRes int color) {
-            mTextColor = ContextCompat.getColor(mActivity, color);
+            mTextColor = ContextCompat.getColor(mView.getContext(), color);
             return this;
         }
 
@@ -135,27 +133,27 @@ public class FluentSnackbar {
         }
 
         public Builder successBackgroundColor() {
-            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.green_500);
+            mBackgroundColor = ContextCompat.getColor(mView.getContext(), R.color.green_500);
             return this;
         }
 
         public Builder errorBackgroundColor() {
-            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.red_500);
+            mBackgroundColor = ContextCompat.getColor(mView.getContext(), R.color.red_500);
             return this;
         }
 
         public Builder warningBackgroundColor() {
-            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.yellow_500);
+            mBackgroundColor = ContextCompat.getColor(mView.getContext(), R.color.yellow_700);
             return this;
         }
 
         public Builder neutralBackgroundColor() {
-            mBackgroundColor = ContextCompat.getColor(mActivity, R.color.default_background);
+            mBackgroundColor = ContextCompat.getColor(mView.getContext(), R.color.default_background);
             return this;
         }
 
         public Builder backgroundColorRes(@ColorRes int color) {
-            mBackgroundColor = ContextCompat.getColor(mActivity, color);
+            mBackgroundColor = ContextCompat.getColor(mView.getContext(), color);
             return this;
         }
 
@@ -173,7 +171,7 @@ public class FluentSnackbar {
             return this;
         }
 
-        public Builder duration(@Snackbar.Duration int duration) {
+        public Builder duration(int duration) {
             mDuration = duration;
             return this;
         }
@@ -184,7 +182,7 @@ public class FluentSnackbar {
         }
 
         public Builder actionTextRes(@StringRes int text) {
-            mActionText = mActivity.getString(text);
+            mActionText = mView.getContext().getString(text);
             return this;
         }
 
@@ -194,7 +192,7 @@ public class FluentSnackbar {
         }
 
         public Builder actionTextColorRes(@ColorRes int color) {
-            return actionTextColor(ContextCompat.getColor(mActivity, color));
+            return actionTextColor(ContextCompat.getColor(mView.getContext(), color));
         }
 
         public Builder actionTextColor(@ColorInt int color) {
@@ -220,7 +218,6 @@ public class FluentSnackbar {
             return mMaxLines;
         }
 
-        @Snackbar.Duration
         int getDuration() {
             return mDuration;
         }
